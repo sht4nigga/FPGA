@@ -9,9 +9,9 @@ reg rst;
 always 
 begin
   clk <= 1'b0;
-  #(CLK_PERIOD / 2);        // Zero level duration of clk signal
+  #(CLK_PERIOD / 2);        	// Zero level duration of clk signal
   clk <= 1'b1;
-  #(CLK_PERIOD / 2);        // One level duration of clk signal
+  #(CLK_PERIOD / 2);        	// One level duration of clk signal
 end
 
 //	Set reset signal
