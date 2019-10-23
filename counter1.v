@@ -4,8 +4,8 @@ module presc #(
 (
 input clk,
 input rst,
-output reg [3:0] Qount,			          	// Counter output
-output strb				                  	// Counter overflow
+output reg [3:0] Qount,			          // Counter output
+output strb				                  // Counter overflow
 );
 
 assign strb = ( Qount == (PRESCALER - 1) ); // strb=0 just when Qount=0
@@ -26,7 +26,7 @@ begin
          if (strb)
         begin
             Qount <= 0;					 // the appearance of strobe
-        end								 // value of the divided frequency
+        end								// value of the divided frequency
 	end
 end	
 endmodule
