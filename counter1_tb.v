@@ -1,11 +1,9 @@
-`timescale 10ns / 1ps
-module my_count_tb();
-localparam CLK_PERIOD = 2;
+`timescale 1ns / 1ps
+module Kruglikov_tb();
+localparam CLK_PERIOD =2;
 
 reg clk;
 reg rst;
-wire clk2;
-wire cnt_en;
 
 // Set frequency
 always 
@@ -17,13 +15,14 @@ begin
 end
 
 //	Set reset signal
-initial begin
+initial 
+begin
 	rst <= 1'b0;
 	#10;
 	rst <= 1'b1;
-	#10;
+	#50;
 	rst <= 1'b0;
-	#20;
+	#200;
     
 	#2000;
 	$finish;
@@ -32,19 +31,13 @@ end
 always @(posedge clk) 
 begin
 if (rst == 1'b1);
- 
 end
-
-wire [7:0] cnt;
-
-my_count #(
-    .PRESCALER(8)
-)dut(
-    .cnt_en(1),
+wire strb;
+wire [3:0] Qount;
+presc dut(
     .clk(clk),
     .rst(rst),  
-    .cnt(cnt),
-	.strb(clk2)
+    .Qount(Qount),
+    .strb(strb)
 );
-
 endmodule
