@@ -1,2 +1,2 @@
-# FPGA_start
-SPI transmitter
+# FPGA
+Suggest the SPI transmitter
