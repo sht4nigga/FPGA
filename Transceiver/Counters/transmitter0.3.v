@@ -10,14 +10,13 @@ module transceiver (
 
 always @(posedge clk)
 begin
-    if (rst)
-    begin
-        data_out <= 0;								// synchronous counter reset
-    end 
-	
-    else
-   
-		if (trfr_prm)							// if we starting the counter
+	 if (rst)
+	 begin
+		data_out <= 0;							// synchronous counter reset
+	 end 
+
+	else
+	if (trfr_prm)								// if we starting the counter
         begin
             data_out <= data_out + 1;		      				// counter launch(incrementing) 
         end
