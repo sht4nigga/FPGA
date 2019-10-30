@@ -1,4 +1,4 @@
-
+/*Это говнокод, к тому же не доделанный. Не копируйте его, не портите себе жизнь пжалста*/
 /*
 Serializer, based on a shift register
 works in the next mode: parallel-in and serial-out
