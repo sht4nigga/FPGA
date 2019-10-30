@@ -26,7 +26,7 @@ begin
 	else
 	if (putting)
 	begin
-	buff<= data_in										// loading "data_in" to the 8-bit register
+	buff<= data_in;										// loading "data_in" to the 8-bit register
 	end
 end
 
