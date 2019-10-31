@@ -1,4 +1,4 @@
-/*Это есть недоделанный говнокод. Не надо его копировать на текущем этапе*/
+
 /*
 Serializer, based on a shift register
 works in the next mode: parallel-in and serial-out
@@ -30,7 +30,7 @@ begin
 	else
 	if (valid&ready)
 	begin
-	buff<= data_in											// loading "data_in" to the 8-bit register
+	buff<= data_in										// loading "data_in" to the 8-bit register
 	end
 	
 end
