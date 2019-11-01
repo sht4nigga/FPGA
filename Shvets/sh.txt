@@ -1,0 +1,16 @@
+module sh(I, Q);
+
+input [1023:0] I;
+output[9:0] Q;
+integer i;
+reg [9:0] Q;
+always @(I)
+	begin
+		for(i= 0; i< 1024; i= i + 1)
+		if(I[i])
+	   	   begin
+	   		Q= i;
+			i= 1024;
+	   	   end	
+	end
+endmodule

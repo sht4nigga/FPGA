@@ -1,0 +1,56 @@
+`timescale 1ns/1ns
+
+module traffic_light_tb;
+
+parameter   red_dur = 20,
+			green_dur = 15,
+			yellow_dur = 3,
+			red_ped_dur = (green_dur + 2*yellow_dur),
+			green_ped_dur = red_dur;
+
+reg reset, clock_auto, clock_ped, request;
+
+initial
+	begin
+		
+		clock_auto = 0;
+		clock_ped = 0;
+		
+	end
+
+initial 
+	begin
+		#10;
+		forever 
+			begin
+			clock_auto = 1; #red_dur;
+			clock_auto = 0; #yellow_dur;
+			clock_auto = 1; #green_dur;
+			clock_auto = 0; #yellow_dur;
+			end	
+	end
+
+initial 
+	begin
+	#10
+		forever
+		begin
+			clock_ped = 1; #green_ped_dur;
+			clock_ped = 0; #red_ped_dur;
+		end
+	end
+
+initial 
+		#500 $finish;
+
+endmodule
+
+
+
+
+
+
+
+
+
+

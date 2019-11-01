@@ -1,0 +1,109 @@
+`timescale 1ns/1ns
+module h_sh_tb;
+
+  reg [3;0] D;
+  reg [2;0] M;
+  reg C, R;
+  wire [3:0] Q;
+
+h_sh Arr(D, C, R, M, Q); 	//Vector, для наполнения переменных в initial-e
+// 0-st test
+initial
+  begin
+    c=0;			//Сбрасываем clk
+    forever #10 C= ~C;		// 10ns reset инвертируем
+   end
+
+      /*
+      0: Q= Q;
+      1: Q= D;
+      2: Q= Q+1;
+      3: Q= Q-1;
+      4: Q= { Q[2:0], 1'b0 };
+      5: Q= { 1'b0, Q[3:1] };
+      6: Q= { Q[2:0], Q[3] };
+      7: Q= { Q[0], Q[3:1] };
+      */
+
+initial 
+  begin
+    D<=0;		// D resetting
+    M=0;		// Выбрали действие из case
+    R<=0;		// Q должен сброситься в 0
+
+#5 R=1;			// Задали Reset на опр.время
+#5 R=0;			// Выключаем Reset(прошел сброй всей системы, что бы убрать X везде)
+    wait (~C);
+    wait (C);
+
+    M=2;
+    wait (&Q);		// логическое умножение (ждем всех единиц)
+    wait (~| Q);	// логическое сложение (ждем всех нулей)
+    
+    M=0;
+ #100;
+ wait (~C);
+ wait (C);
+ M=3;
+ wait (&Q);
+ wait (~|Q);
+ M=0;
+ #100;
+ D=1;
+ wait (C);
+ wait (~C);
+ M=1;
+ wait (C);
+ wait (~C);
+ M=0;
+ #20;
+ wait (C);
+ wait (~C);
+ M=4;
+ wait (~|Q);
+
+ M=0;
+ 
+ #100;
+ D=8;
+ wait (C);
+ wait (~C);
+ M=1;
+ wait (C);
+ wait (~C);
+ M=0;
+ #20;
+ wait (C);
+ wait (~C);
+ M=5;
+ wait (~|Q);
+
+ M=0;
+
+ wait (C);
+ wait (~C);
+ M=1;
+ wait (C);
+ wait (~C);
+ M=0;
+ #20;
+ M=7;
+ wait (Q==8);
+ wait (Q==1);
+ wait (Q==8);
+ M=0;
+
+ #20;
+ M=6;
+ wait (Q==1);
+ wait (Q==8);
+ wait (Q==1);
+ M=0;
+
+#100 $finish;
+  end	
+endmodule
+/*
+
+
+*/

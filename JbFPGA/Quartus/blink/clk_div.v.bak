@@ -1,0 +1,17 @@
+module clk_div #(parameter X = 0) (
+  input clk, //вход тактового сигнала
+  output clk_out // выход тактокого сигнала с частотой в x^2 меньше
+  );
+
+  assign clk_out = (cnt == 2**X);
+
+ reg [X-1:0]cnt = 0;
+
+  always @(posedge clk) begin
+    if (clk_out)
+      cnt <= 0;
+
+    else
+      cnt <= cnt + 1;
+  end
+endmodule
