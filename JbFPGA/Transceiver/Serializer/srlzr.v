@@ -1,52 +1,44 @@
-<<<<<<< HEAD
 /*Это есть недоделанный говнокод. Не надо его копировать на текущем этапе
-
 Serializer, based on a shift register works in the next 
 mode: parallel-input and serial-output (PISO) mode
-=======
-/*Это есть недоделанный говнокод. Не надо его копировать на текущем этапе*/
-/*
-Serializer, based on a shift register
-works in the next mode: parallel-in and serial-out
-(PISO) mode
->>>>>>> cant_push_it
 */
 module serializer_PISO #( parameter DATA_WIDTH = 8)
 (
     input clk,
 	input rst,
-	input valid,												// Loading(writing) data to the registers
-	input [DATA_WIDTH -1:0] data_in,							// 8-bit input data
-<<<<<<< HEAD
-	input shift;												// Отщелк на события
-	input valid,								// Loading(writing) data to the registers
-	input [DATA_WIDTH -1:0] data_in,					// 8-bit input data
+	input valid,													// Loading(writing) data to the registers
+	input [DATA_WIDTH -1:0] data_in,								// 8-bit input data
+	input shift,													// permits the occasion
 
-    output srl_out												// serial output data
-	output wire ready;											// may transfer ready data	
-=======
-
-    output srl_out												// serial output data
-	output wire ready;											// may transfer ready data
-	input shift;												// Отщелк на события
->>>>>>> cant_push_it
+    output srl_out,												// serial output data
+	output wire ready,											// may transfer data from the "buff" to "srl_out"
+	output tx_active												// shows the data transfering
 );
 
-reg [DATA_WIDTH -1:0] buff;
+assign srl_out = buff[0];											// define the buff contents to the serial out
+reg [DATA_WIDTH -1:0] buff;											// temporary local data storage
 
 always @(posedge clk)
-
 begin
+
 	if (rst)
 	begin
-		//data_in<= 0;							// Resetting the input data to ZERO
-		buff<= 0;							// Resetting the temporary data to ZERO
+		buff<= 0;									// Resetting the temporary data to ZERO	
+		ready<= 0;									// Resetting the temporary data to ZERO	
+		tx_active<= 0;								// Resetting the transering signalto ZERO
 	end
 	
 	else
-	if (valid&ready)
+	if (valid & ready)
 	begin
-	buff<= data_in								// loading "data_in" to the 8-bit register
+		buff<= data_in;								// loading "data_in" to the 8-bit register
+	end
+	
+	/*Waiting mode*/
+	else
+	if ( ready == 1'b1 )
+	begin
+	data_in <= buff;
 	end
 	
 end
