@@ -32,7 +32,7 @@ begin
 				for (i=0, i<=DATA_WIDTH, i=i+1)				// run all the numbers(inputs) of the data_width regs
 					if( (data_in[i] | shift)<= 0; )			// "d_i" & "shift" goes through the "AND" gate, so we have a ZERO(shift=0)
 						( LOAD | data_in[i] ) <= 1;			// "LOAD" & "d_i" goes through the "AND" gate,
-			end												// so we have a HIGH output(LOAD=1)
+			end												// we have a HIGH output(LOAD=1)
         end
 end
 endmodule
