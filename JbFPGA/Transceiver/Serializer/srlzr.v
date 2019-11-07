@@ -6,7 +6,6 @@ module serializer_PISO #( parameter DATA_WIDTH = 8)
 (
     input clk,
 	input rst,
-	input valid,													// Loading(writing) data to the registers
 	input [DATA_WIDTH -1:0] data_in,								// 8-bit input data
 	input shift,													// permits the shift
 	input LOAD,														// then load the data in to the triggers
@@ -31,7 +30,7 @@ begin
 	end
 	
 	else
-	if (valid & ready)
+	if (LOAD & ready)
 		begin
 			BUFF<= data_in;							// loading "data_in" to the 8-bit register
 		end
@@ -63,7 +62,8 @@ end
 shift = 1
 LOAD = 0
 */
-int i;							// integer vareable for counting the quantities steps of data_width
+
+int q;							// integer vareable for counting the quantities steps of data_width
 
 always @(posedge clk)
 begin
@@ -73,6 +73,11 @@ begin
 			if( data_in[i] | LOAD ) <= 0;			// "LOAD" & "d_i" goes through the "AND" gate, so we have a ZERO(LOAD=0)
 			( shift | data_in[i] ) <= 1;			// "shift" & "d_i" goes through the "AND" gate,
 		end											// so we have a HIGH output(shift=1)
+		
+		else
+		begin
+		data_in <= BUFF;							// sent data in to the BUFF
+		end
 			
 end			
 endmodule
