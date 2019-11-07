@@ -18,7 +18,7 @@ module serializer_PISO #( parameter DATA_WIDTH = 8)
 
 assign srl_out = BUFF[0];											// define the BUFF contents to the serial out
 reg [DATA_WIDTH -1:0] BUFF;											// temporary local data storage
-int i, q;															// integer vareables for counting the quantities steps of data_width
+int i;															// integer vareable for counting the quantities steps of data_width
 
 always @(posedge clk)
 begin
@@ -32,11 +32,12 @@ begin
 	
 	else
 	if (valid & ready)
-	begin
-		BUFF<= data_in;								// loading "data_in" to the 8-bit register
-	end
+		begin
+			BUFF<= data_in;							// loading "data_in" to the 8-bit register
+		end
 	
-		else
+	
+	else
 		begin
 			if (LOAD == 1'b1)								// the loading data mode to the registers
 			begin
@@ -44,24 +45,32 @@ begin
 					if( data_in[i] | shift ) <= 0;			// "d_i" & "shift" goes through the "AND" gate, so we have a ZERO(shift=0)
 						( LOAD | data_in[i] ) <= 1;			// "LOAD" & "d_i" goes through the "AND" gate,
 			end												// so we have a HIGH output(LOAD=1)
-			
-			else
-			if (shift == 1'b1)
-			begin
-				for (q=0, q<=DATA_WIDTH, q=q+1)				
-					if( data_in[i] | LOAD ) <= 0;			// "LOAD" & "d_i" goes through the "AND" gate, so we have a ZERO(LOAD=0)
-						( shift | data_in[i] ) <= 1;		// "shift" & "d_i" goes through the "AND" gate,
-			end												// so we have a HIGH output(shift=1)
 		end
 		
 	/*Waiting mode*/
 	else
-	if ( ready == 1'b1 )
-	begin
-	data_in <= BUFF;
-	end
+	if (  ((data_in | LOAD) == 1'b1) && data_in[DATA_WIDTH]  )
+		begin
+			ready == 1'b1
+			shift<= 1'b1;
+			data_in <= BUFF;
+		end
 	
 end
 
+
+/*starting the shift mode*/
+int i;							// integer vareable for counting the quantities steps of data_width
+
+always @(posedge clk)
+begin
+	if (shift == 1'b1)
+		begin
+			for (q=0, q<=DATA_WIDTH, q=q+1)				
+			if( data_in[i] | LOAD ) <= 0;			// "LOAD" & "d_i" goes through the "AND" gate, so we have a ZERO(LOAD=0)
+			( shift | data_in[i] ) <= 1;			// "shift" & "d_i" goes through the "AND" gate,
+		end											// so we have a HIGH output(shift=1)
+			
+end			
 endmodule
 
