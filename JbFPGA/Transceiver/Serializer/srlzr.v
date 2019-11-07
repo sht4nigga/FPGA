@@ -59,7 +59,10 @@ begin
 end
 
 
-/*starting the shift mode*/
+/*starting the shift mode
+shift = 1
+LOAD = 0
+*/
 int i;							// integer vareable for counting the quantities steps of data_width
 
 always @(posedge clk)
