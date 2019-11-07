@@ -38,20 +38,19 @@ begin
 	if (rst == 1'b1)
 	begin
 		for (i = 0; i < DATA_DEPTH; i = i + 1)		// incrementing the FIFO
-		fifo[i] <= 0;                                   // Resetting the FIFO
-		golova <= 0;                                    // Resetting the queue start
+			fifo[i] <= 0;                                   // Resetting the FIFO
+			golova <= 0;                                    // Resetting the queue start
 	end 
 	
 	else
-	
 	begin		//Write_______________________________________
 		if (wren && ~full)
 		begin
 		  fifo[golova] <= din;				// putting data in to the golova
 		  if (golova == DATA_DEPTH-1)			// restrictions for the queue beginning
-		  golova <= 0;					// Reset the beginning
-		  else
-		  golova <= golova + 1;				// other occurence incrementing
+		  	golova <= 0;					// Reset the beginning
+		  	else
+		  	golova <= golova + 1;				// other occurence incrementing
 		end	
 	end
 end
@@ -63,15 +62,16 @@ begin
 		begin
 		  hvost <= 0;
 		end
-/*for staying inside the queue limits - make the check of non equality of the hvost & queue size*/	
+/*for staying inside the queue limits - make the
+check of non equality of the hvost & queue size*/	
 		else
 		begin
 		if (rden && !empty)			
 			begin
-			if (hvost == DATA_DEPTH-1)				// if hvost = DATA_DEPTH-1, then
-			hvost <= 0;						// Reset hvost
-			else
-			hvost <= hvost + 1;
+				if (hvost == DATA_DEPTH-1)				// if hvost = DATA_DEPTH-1, then
+				hvost <= 0;						// Reset hvost
+				else
+				hvost <= hvost + 1;
 			end
 		end
 end
