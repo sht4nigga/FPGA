@@ -26,8 +26,8 @@ begin
 	if (rst)
 	begin
 		BUFF<= 0;									// Resetting the temporary data to ZERO	
-		ready<= 0;									// Resetting the temporary data to ZERO	
-		TX_active<= 0;								// Resetting the transering signalto ZERO
+		ready<= 0;									// Resetting signals to ZERO	
+		TX_active<= 0;								
 	end
 	
 	else
@@ -40,18 +40,18 @@ begin
 		begin
 			if (LOAD == 1'b1)								// the loading data mode to the registers
 			begin
-				for (i=0, i<=DATA_WIDTH, i=i+1)
-					if( data_in[i] | shift ) <= 0;
-						( LOAD | data_in[i] ) <= 1;
-			end
+				for (i=0, i<=DATA_WIDTH, i=i+1)				// run all the numbers(inputs) of the data_width regs
+					if( data_in[i] | shift ) <= 0;			// "d_i" & "shift" goes through the "AND" gate, so we have a ZERO(shift=0)
+						( LOAD | data_in[i] ) <= 1;			// "LOAD" & "d_i" goes through the "AND" gate,
+			end												// so we have a HIGH output(LOAD=1)
 			
 			else
 			if (shift == 1'b1)
 			begin
-				for (q=0, q<=DATA_WIDTH, q=q+1)
-					if( data_in[i] | LOAD ) <= 0;
-						( shift | data_in[i] ) <= 1;
-			end
+				for (q=0, q<=DATA_WIDTH, q=q+1)				
+					if( data_in[i] | LOAD ) <= 0;			// "LOAD" & "d_i" goes through the "AND" gate, so we have a ZERO(LOAD=0)
+						( shift | data_in[i] ) <= 1;		// "shift" & "d_i" goes through the "AND" gate,
+			end												// so we have a HIGH output(shift=1)
 		end
 		
 	/*Waiting mode*/
