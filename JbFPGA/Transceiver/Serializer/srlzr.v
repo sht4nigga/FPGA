@@ -11,8 +11,7 @@ module serializer_PISO #( parameter DATA_WIDTH = 8)
 	input LOAD,														// then load the data in to the triggers
 
     output srl_out,										// serial output data
-	output wire ready,									// may transfer data from the "BUFF" to "srl_out"
-	output TX_active												// shows the data transfering
+	
 );
 
 assign srl_out = BUFF[0];											// define the BUFF contents to the serial out
@@ -41,7 +40,7 @@ begin
 			if (LOAD == 1'b1)								// the loading data mode to the registers
 			begin
 				for (i=0, i<=DATA_WIDTH, i=i+1)				// run all the numbers(inputs) of the data_width regs
-					if( data_in[i] | shift ) <= 0;			// "d_i" & "shift" goes through the "AND" gate, so we have a ZERO(shift=0)
+					if( (data_in[i] | shift)<= 0; )			// "d_i" & "shift" goes through the "AND" gate, so we have a ZERO(shift=0)
 						( LOAD | data_in[i] ) <= 1;			// "LOAD" & "d_i" goes through the "AND" gate,
 			end												// so we have a HIGH output(LOAD=1)
 		end
