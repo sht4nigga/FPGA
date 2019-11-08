@@ -66,7 +66,7 @@ begin
 check of non equality of the hvost & queue size*/	
 		else
 		begin
-		if (rden && !empty)			
+			if (rden && !empty)			
 			begin
 				if (hvost == DATA_DEPTH-1)				// if hvost = DATA_DEPTH-1, then
 				hvost <= 0;						// Reset hvost
