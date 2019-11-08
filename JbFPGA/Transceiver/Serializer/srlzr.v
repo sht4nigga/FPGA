@@ -2,37 +2,43 @@
 Serializer, based on a shift register works in the next 
 mode: parallel-input and serial-output (PISO) mode
 */
-module serializer_PISO #( parameter DATA_WIDTH = 8)
+module srlzr_PISO #(parameter DATA_WIDTH = 8, REGdata_width = 8)
 (
     input clk,
 	input rst,
-	input [DATA_WIDTH -1:0] data_in,								// 8-bit input data
-	input shift,													// permits the shift
-	input LOAD,														// then load the data in to the triggers
+	input [DATA_WIDTH -1:0] iDATA_IN,				// 8-bit input data
+	input iSHIFT,									// permits the shift
+	input iLOAD,									// then load the data in to the triggers
 
-    output srl_out										// serial output data
-	
+    output srl_out									// serial output data	
 );
 
-assign srl_out = BUFF[0];											// define the BUFF contents to the serial out
-reg [DATA_WIDTH -1:0] BUFF;											// temporary local data storage
-integer i;															// integer vareable for counting the quantities steps of data_width
+reg [DATA_WIDTH -1:0] BUFF;							// temporary local data storage
+reg shift;
+reg load;
+reg [REGdata_width-1:0] data_in;
+
+assign srl_out = BUFF[0];							// define the BUFF contents to the serial out
+integer i;											// integer vareable for counting the quantities steps of data_width
 
 always @(posedge clk)
 begin
     if(rst)
     begin
-    BUFF <= 0;
+        load<= 0;
+        BUFF<= 0;
+        shift<= 0;
+        
     end		
 
     else 
         begin
-            if (LOAD == 1'b1)								// the loading data mode to the registers
+            if (load == 1'b1)								// the loading data mode to the registers
 			begin
-				for (i=0, i<=DATA_WIDTH, i=i+1)				// run all the numbers(inputs) of the data_width regs
-					if( (data_in[i] | shift)<= 0; )			// "d_i" & "shift" goes through the "AND" gate, so we have a ZERO(shift=0)
-						( LOAD | data_in[i] ) <= 1;			// "LOAD" & "d_i" goes through the "AND" gate,
-			end												// so we have a HIGH output(LOAD=1)
+				for (i=0; i<=REGdata_width; i=i+1)			// run all the numbers(inputs) of the data_width regs
+				    if( (data_in[i] | shift) <= 0 )		    // "d_i" & "shift" goes through the "AND" gate, so we have a ZERO(shift=0)
+				        data_in[i] <= 1'b1;		            // "load" & "d_i" goes through the "AND" gate,
+			end												// so we have a HIGH output(load=1)
         end
 end
 endmodule
