@@ -2,45 +2,46 @@
 module srlzrPISO_tb();
 localparam CLK_PERIOD =2;   // Pulse length
 
-reg clk;
-reg rst;
-reg data_in;
-reg shift;
-reg load;
-reg BUFF;
+reg tb_clk;
+reg tb_rst;
+reg tb_data_in;
+reg tb_shift;
+reg tb_load;
 
 // Set frequency
 always 
 begin
-  clk <= 1'b0;
+  tb_clk <= 1'b0;
   #(CLK_PERIOD / 2);        // Zero level duration of clk period
-  clk <= 1'b1;
+  tb_clk <= 1'b1;
   #(CLK_PERIOD / 2);        // HIGH level duration of clk period
 end
 
 //	Set reset signal
 initial 
 begin
-	rst <= 1'b0;              // ZERO level duration of Reset signal
+	tb_rst <= 0;              // ZERO level duration of Reset signal
 	#10;
-	rst <= 1'b1;              // ONE level duration of Reset signal
-	#50;
-	rst <= 1'b0;              // ZERO level duration of Reset signal
+	tb_rst <= 1'b1;              // ONE level duration of Reset signal
+	#30;
+	tb_rst <= 0;              // ZERO level duration of Reset signal
 	#200;
     
 	#2000;
 	$finish;
 end
 
-always @(posedge clk) 
+always @(posedge tb_clk) 
 begin
-if (rst == 1'b1);               // Synchronous Reset
+if (tb_rst == 1'b1);               // Synchronous Reset
 end
 wire srl_out;
 srlzr_PISO dut(                      // Connecting ports
-    .clk(clk),
-    .rst(rst),  
+    .clk(tb_clk),
+    .rst(tb_rst),  
     .srl_out(srl_out),
-    .iDATA_IN(data_in)
+    .iDATA_IN(tb_data_in),
+    .iSHIFT(tb_shift),
+    .iLOAD(tb_load)
 );
 endmodule

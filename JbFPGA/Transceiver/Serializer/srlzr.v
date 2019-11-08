@@ -13,6 +13,7 @@ module srlzr_PISO #(parameter DATA_WIDTH = 8, REGdata_width = 8)
     output srl_out									// serial output data	
 );
 
+reg isrl_out;
 reg [DATA_WIDTH -1:0] BUFF;							// temporary local data storage
 reg shift;
 reg load;
@@ -23,21 +24,20 @@ integer i;											// integer vareable for counting the quantities steps of da
 
 always @(posedge clk)
 begin
-    if(rst)
+    if(rst == 1'b1)
     begin
         load<= 0;
-        BUFF<= 0;
-        shift<= 0;
-        
+        //BUFF<= 0;
+        shift<= 0;           
     end		
 
     else 
         begin
-            if (load == 1'b1)								// the loading data mode to the registers
+            if (load)								// the loading data mode to the registers
 			begin
 				for (i=0; i<=REGdata_width; i=i+1)			// run all the numbers(inputs) of the data_width regs
-				    if( (data_in[i] | shift) <= 0 )		    // "d_i" & "shift" goes through the "AND" gate, so we have a ZERO(shift=0)
-				        data_in[i] <= 1'b1;		            // "load" & "d_i" goes through the "AND" gate,
+				   // if( (data_in[i] | shift) <= 0 )		    // "d_i" & "shift" goes through the "AND" gate, so we have a ZERO(shift=0)
+				        data_in[i] <= BUFF +1;		            // "load" & "d_i" goes through the "AND" gate,
 			end												// so we have a HIGH output(load=1)
         end
 end
