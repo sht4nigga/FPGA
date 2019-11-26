@@ -1,18 +1,23 @@
 `timescale 1ns / 1ps
-module DeMultiplexer_tb();
-localparam CLK_PERIOD =2;   // Pulse length
+module DeMultiplexer_tb;
 
-		reg A,		// input line
-		reg S,		// switch signal
+	reg [1:0] inA;		     // input line
+	reg [1:0] Select;		// switch signal
+	reg [1:0] outB;		// output line	
+	reg [1:0] outC;		// output line
 
-		reg B,		// output line	
-		reg C,		// output line
-
-
-
+integer i;
 wire B;
 wire C;
-DeMultiplexer dut(                      // Connecting ports
+
+DeMultiplexer my_DEmux ( 
+Select,
+outB,
+outC,
+inA
+
+)                   // Connecting ports
+(
     .A(A),
     .B(B),  
     .C(C),
