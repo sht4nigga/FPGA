@@ -1,18 +1,18 @@
 `timescale 1ns / 1ps
-module srlzrPISO_tb();
-localparam CLK_PERIOD =2;   // Pulse length
+module DeMultiplexer_tb();
 
-reg tb_clk;
-reg tb_rst;
-reg tb_data_in;
-reg tb_shift;
-reg tb_load;
 
-// Set frequency
+		reg [1:0] inA,		     // input line
+		reg [1:0] Select,		// switch signal
+
+		reg [1:0] inB,		// output line	
+		reg [1:0] inC,		// output line
+
+//____________________________________________________________________
 always 
 begin
-  tb_clk <= 1'b0;
-  #(CLK_PERIOD / 2);        // Zero level duration of clk period
+  S <= 1'b0;
+  #(S / 2);        // Zero level duration of clk period
   tb_clk <= 1'b1;
   #(CLK_PERIOD / 2);        // HIGH level duration of clk period
 end
@@ -34,14 +34,16 @@ end
 always @(posedge tb_clk) 
 begin
 if (tb_rst == 1'b1);               // Synchronous Reset
-end
-wire srl_out;
-srlzr_PISO dut(                      // Connecting ports
-    .clk(tb_clk),
-    .rst(tb_rst),  
-    .srl_out(srl_out),
-    .iDATA_IN(tb_data_in),
-    .iSHIFT(tb_shift),
-    .iLOAD(tb_load)
+end*/
+//____________________________________________________________________
+
+wire B;
+wire C;
+DeMultiplexer dut ()                   // Connecting ports
+(
+    .A(A),
+    .B(B),  
+    .C(C),
+    .S(S)
 );
 endmodule
