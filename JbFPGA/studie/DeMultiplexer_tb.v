@@ -9,7 +9,11 @@ integer i;
 wire B;
 wire C;
 
-DeMultiplexer my_DEmux ( inA, Select, outB, outC);                   // Connecting ports
+assign B = outB;
+assign C = outC;
+
+DeMultiplexer my_DEmux ( inA, Select, B, C);                   // Connecting ports
+
 
     initial 
     begin
@@ -25,11 +29,6 @@ DeMultiplexer my_DEmux ( inA, Select, outB, outC);                   // Connecti
             
             Select = 1; 
             inA = 1;     #1;
-            
-            Select = 1;  #1;
-            Select = 2;  #1;
-            Select = 3;  #1;
-            $display("-----------------------------------------");
         end
     end
 endmodule
