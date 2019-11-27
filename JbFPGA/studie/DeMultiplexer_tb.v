@@ -56,7 +56,7 @@ initial
         A_in <= 1;     #5;
  //4-----------------------all the combinations were passed in the fourth cycle
     end    
-DeMultiplexer my_DEmux (        // Connecting ports
+DeMultiplexer my_DEmux (          /* Connecting ports*/
             .A_in(A_in), 
             .Select(Select),
             .outB(B),
