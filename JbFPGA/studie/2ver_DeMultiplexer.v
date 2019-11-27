@@ -1,10 +1,14 @@
 /*DeMultiplexer - swithes between the two lines depending on 
 the input A pin, wich allow MUX to shange the line
-for conducting the data 
+for conducting the data.
+---------------------------------------------------------
+This DeMultiplexer works just with assigns,
+with out any "always" blocks, because always plays
+with the "reg" type, but we have only "wire" type.
 */
 module DeMultiplexer (
     input wire [1:0] A_in,	       // input line
-	input wire Select,	   // switch signal
+	input wire Select,	            // switch signal
 
     output wire [1:0] outB,		// output line	
 	output wire [1:0] outC		// output line
