@@ -2,7 +2,7 @@
 module DeMultiplexer_tb;
 localparam CLK_PERIOD = 10;
 	reg [1:0] A_in;		     // input line
-	reg [1:0] Select;	     // switch signal
+	reg Select;	             // switch signal
 	wire [1:0] B;		     // output line	
 	wire [1:0] C;		     // output line
 initial 
@@ -60,6 +60,5 @@ DeMultiplexer my_DEmux (          /* Connecting ports*/
             .A_in(A_in), 
             .Select(Select),
             .outB(B),
-            .outC(C)
-);   
+            .outC(C)    );   
 endmodule
