@@ -10,36 +10,38 @@ localparam CLK_PERIOD = 10;
 initial 
     begin
         Select <= 0;                    // non switching mode
-        B_in <= 0;     
-		A_in <= 0;     #5;              // no data at the input pin
+        A_in <= 0;     
+		B_in <= 0;     #5;              // no data at the input pin
+		
+		Select <= 0;                    // non switching mode
+        A_in <= 0;     
+		B_in <= 1;     #5;              // no data at the input pin
+		
+		Select <= 0;                    // non switching mode
+        A_in <= 1;     
+		B_in <= 0;     #5;              // no data at the input pin
+		
+		Select <= 0;                    // non switching mode
+        A_in <= 1;     
+		B_in <= 1;     #5;              // no data at the input pin
+//------------------------------------------------------------------		
+		Select <= 1;                    // non switching mode
+        A_in <= 0;     
+		B_in <= 0;     #5;              // no data at the input pin
+		
+		Select <= 1;                    // non switching mode
+        A_in <= 0;     
+		B_in <= 1;     #5;              // no data at the input pin
+		
+		Select <= 1;                    // non switching mode
+        A_in <= 1;     
+		B_in <= 0;     #5;              // no data at the input pin
+		
+		Select <= 1;                    // non switching mode
+        A_in <= 1;     
+		B_in <= 1;     #5;              // no data at the input pin
                                 
-        Select <= 0;                    // non switching mode
-        B_in <= 0;     
-		A_in <= 0;     #5;              // no data at the input pin
-		
-        Select <= 0;                    // non switching mode
-        B_in <= 0;     
-		A_in <= 0;     #5;              // no data at the input pin
-
-        Select <= 0;                    // non switching mode
-        B_in <= 0;     
-		A_in <= 0;     #5;              // no data at the input pin
-		
-        Select <= 0;                    // non switching mode
-        B_in <= 0;     
-		A_in <= 0;     #5;              // no data at the input pin
-		
-        Select <= 0;                    // non switching mode
-        B_in <= 0;     
-		A_in <= 0;     #5;              // no data at the input pin
-		
-        Select <= 0;                    // non switching mode
-        B_in <= 0;     
-		A_in <= 0;     #5;              // no data at the input pin
-		
-        Select <= 0;                    // non switching mode
-        B_in <= 0;     
-		A_in <= 0;     #5;              // no data at the input pin		
+        	
     end    
 DeMultiplexer my_DEmux (          /* Connecting ports*/
             .Select(Select),
