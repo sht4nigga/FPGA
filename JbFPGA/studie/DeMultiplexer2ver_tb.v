@@ -5,23 +5,8 @@ localparam CLK_PERIOD = 10;
 	reg Select;	             // switch signal
 	wire [1:0] B;		     // output line	
 	wire [1:0] C;		     // output line
-initial 
-    begin
 
-        Select <= 0;                    // non switching mode
-        A_in <= 0;     #5;              // no data at the input pin
-                                
-        Select <= 0;                        // non switching mode
-        A_in <= 1;     #5;                  // data at the input pin
-                     
-        Select <= 1;                        // switching mode
-        A_in <= 0;     #5;                  // no data at the input pin
-                     
-        Select <= 1;                            // switching mode
-        A_in <= 1;     #5;                      // data at the input pin    
- 
-    end    
-DeMultiplexer my_DEmux (          /* Connecting ports*/
+DeMultiplexer2ver my_DEmux2ver (          /* Connecting ports*/
             .A_in(A_in), 
             .Select(Select),
             .outB(B),

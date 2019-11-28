@@ -3,8 +3,7 @@ the input A pin, wich allow MUX to shange the line
 for conducting the data.
 ---------------------------------------------------------
 This DeMultiplexer works  with  "always" blocks,
-because always plays with the "reg" type.
-*/
+because always plays with the "reg" type.*/
 module DeMultiplexer2ver (
     input wire [1:0] A_in,	       // input line
 	input wire Select,	            // switch signal
@@ -29,5 +28,4 @@ begin
         end
     endcase
 end
-
 endmodule
