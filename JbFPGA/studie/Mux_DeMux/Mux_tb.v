@@ -10,7 +10,7 @@ localparam CLK_PERIOD = 10;
 initial 
     begin
         Select <= 0;                    // non switching mode
-        A_in <= 0;     
+		A_in <= 0;     
 		B_in <= 0;     #5;              // no data at the input pin
 		
 		Select <= 0;                    // non switching mode
