@@ -22,7 +22,7 @@
 */
 module Mux (
 	input wire Select,	       // the switching signal
-	input wire A_in,	       // input line
+input wire A_in,	       // input line
 	input wire B_in,	       // input line
 
     output reg Y			   // output line	
