@@ -1,32 +1,43 @@
-`timescale 1ns/1ps
-module DeMultiplexer2ver_tb;
-localparam CLK_PERIOD = 10;
-	reg [1:0] A_in;		     // input line
-	reg Select;	             // switch signal
-	wire [1:0] B;		     // output line	
-	wire [1:0] C;		     // output line
+/*Mux
+---------------------------------------------------------
+| S | A | B | Y |				   
+|---------------|				      S
+| 0   0   0   0	|				      |
+|---------------|				 _____|____
+| 0   0   1   1 |				|	  	   \
+|---------------|				|  Mux	   |
+| 0   1   0   0 |				|	  	   |
+|---------------|		   A----|	       |
+| 0   1   1   1 |				|	  	   |----Y
+|_______________|				|	       |
+|_______________|				|	  	   |
+| 1   0   0   0 |				|	       |
+|---------------|		   B----|	  	   |
+| 1   0   1   0 |				|	       |
+|---------------|				|_________/
+| 1   1   0   1 |
+|---------------|
+| 1   1   1   1 |
+---------------------------------------------------------
+*/
+module Mux (
+	input wire Select,	       // the switching signal
+    input wire A_in,	       // input line
+	input wire B_in,	       // input line
 
-integer i;
-initial 
-    begin
-        for (i= 1; i<= 12; i=i+1)           // cycle "for" repeats the input configuration "i<= X" times
-        begin
-            Select <= 0;                    // non switching mode
-            A_in <= 0;     #5;              // no data at the input pin
-                                    
-            Select <= 0;                        // non switching mode
-            A_in <= 1;     #5;                  // data at the input pin
-                         
-            Select <= 1;                        // switching mode
-            A_in <= 0;     #5;                  // no data at the input pin
-                         
-            Select <= 1;                            // switching mode
-            A_in <= 1;     #5;                      // data at the input pin      
-        end
-    end  
-DeMultiplexer2ver my_DEmux2ver (          /* Connecting ports*/
-            .A_in(A_in), 
-            .Select(Select),
-            .outB(B),
-            .outC(C)    );   
+    output reg Y			   // output line	
+);
+always@(*)
+begin
+	case({Select, A_in, B_in})	
+        3'b000 : Y <= 1'b0;
+        3'b001 : Y <= 1'b1;
+        3'b010 : Y <= 1'b0;
+        3'b011 : Y <= 1'b1;
+        3'b100 : Y <= 1'b0;
+        3'b101 : Y <= 1'b0;
+        3'b110 : Y <= 1'b1;
+        3'b111 : Y <= 1'b1;
+	endcase
+end
 endmodule
