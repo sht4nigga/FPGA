@@ -1,20 +1,32 @@
-/*DeMultiplexer - swithes between the two lines depending on 
-the input A pin, wich allow MUX to shange the line
-for conducting the data.
+/*Mux
 ---------------------------------------------------------
-This DeMultiplexer works just with assigns,
-with out any "always" blocks, because always plays
-with the "reg" type, but we have only "wire" type.
+| S | A | B | Y |				   
+|---------------|				      S
+| 0   0   0   0	|				      |
+|---------------|				 _____|____
+| 0   0   1   1 |				|	  	   \
+|---------------|				|  Mux	   |
+| 0   1   0   0 |				|	  	   |
+|---------------|		   A----|	       |
+| 0   1   1   1 |				|	  	   |----Y
+|_______________|				|	       |
+|_______________|				|	  	   |
+| 1   0   0   0 |				|	       |
+|---------------|		   B----|	  	   |
+| 1   0   1   0 |				|	       |
+|---------------|				|_________/
+| 1   1   0   1 |
+|---------------|
+| 1   1   1   1 |
+---------------------------------------------------------
 */
-module DeMultiplexer (
-    input wire [1:0] A_in,	       // input line
-	input wire Select,	            // switch signal
+module Mux2ver (
+	input wire Select,	       // the switching signal
+    input wire A_in,	       // input line
+	input wire B_in,	       // input line
 
-    output wire [1:0] outB,		// output line	
-	output wire [1:0] outC		// output line
+    output Y			   // output line	
 );
 
-assign outB = (Select)? 2'b00 : A_in;   // B = A, if "S" equal to logic 1, otherwise B = 0
-assign outC = (Select)? A_in : 2'b00;   // C = A, if "S" equal to logic 1, otherwise B = 0
-
+assign Y = (Select) ? A_in : B_in;
 endmodule

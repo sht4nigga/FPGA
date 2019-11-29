@@ -21,23 +21,23 @@
 */
 module Mux (
 	input wire Select,	           // the switching signal
-    input wire [1:0] A_in,	       // input line
-	input wire [1:0] B_in,	       // input line
+    input wire A_in,	       // input line
+	input wire B_in,	       // input line
 
-    output reg [1:0] Y,			// output line	
+    output reg Y			// output line	
 );
 always@(*)
 begin
 	case({Select, A_in, B_in})
-			3'b000 : Y <= 1"b0
-			3'b001 : Y <= 1"b0
-			3'b010 : Y <= 1"b1
-			3'b011 : Y <= 1"b1
-			3'b100 : Y <= 1"b0
-			3'b101 : Y <= 1"b1
-			3'b110 : Y <= 1"b0
-			3'b111 : Y <= 1"b1
+			3'b000 : Y <= 1'b0;
+			3'b001 : Y <= 1'b1;
+			3'b010 : Y <= 1'b0;
+			3'b011 : Y <= 1'b1;
 
+			3'b100 : Y <= 1'b0;
+			3'b101 : Y <= 1'b0;
+			3'b110 : Y <= 1'b1;
+			3'b111 : Y <= 1'b1;
 	endcase
 end
 endmodule
