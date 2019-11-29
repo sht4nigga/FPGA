@@ -47,7 +47,7 @@ initial
     end    
 Mux my_mux (          /* Connecting ports*/
             .Select(Select),
-			.A_in(A_in), 
+            .A_in(A_in), 
             .B_in(B_in),
             .Y(Yout)    
             );   
