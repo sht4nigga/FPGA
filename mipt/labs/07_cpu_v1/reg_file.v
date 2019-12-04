@@ -1,23 +1,23 @@
 module reg_file(
     input clk,
-    input [4:0]raddr0,   /* Read address #0 */
-    input [4:0]raddr1,   /* Read address #1 */
-    input [4:0]waddr,    /* Write address */
-    input [31:0]wdata,   /* Write data */
-    input we,            /* Write enable */
+    input [4:0]raddr0,   // Read address #0
+    input [4:0]raddr1,   // Read address #1
+    input [4:0]waddr,    // Write address
+    input [31:0]wdata,   // Write data
+    input we,            // Write enable
 
-    output [31:0]rdata0, /* Read data #0 */
-    output [31:0]rdata1  /* Read data #1 */
+    output [31:0]rdata0, // Read data #0
+    output [31:0]rdata1  // Read data #1
 );
 
-reg [31:0]x[31:0]; /* Array of registers x0-x31 */
+reg [31:0]x[31:0]; /* Array of 32-bit registers x0-x31 */
 
 genvar i;
 generate
 for (i = 0; i < 32; i = i + 1)
 begin : reg_init
     initial
-        x[i] = 32'b0; /* Set initial value of x[i] to 0 */
+        x[i] = 32'b0; /* Set initial value of x[i] to ZERO */
 end
 endgenerate
 
@@ -72,3 +72,5 @@ always @(posedge clk) begin
 			x[15]);
 end
 endmodule
+
+

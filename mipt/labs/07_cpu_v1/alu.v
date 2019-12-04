@@ -21,12 +21,12 @@ always @(*)
 */
 begin
 	case (op)
-		4'b0000:
+		4'b 0000:
 		begin
 			res = src_a; 
 		end
 		
-		4'b0010:
+		4'b 0010:
 		begin
 			res = src_a + src_b;
 			/* res = scr_a || scr_b;*/
