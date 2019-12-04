@@ -17,12 +17,12 @@ always @(*)
 */
 begin
 	case (op)
-		8'b00000000:
+		4'b0000:
 		begin
 			res = scr_a; 
 		end
 		
-		8'b00000010:
+		4'b0010:
 		begin
 			res = scr_a + scr_b;
 			/* res = scr_a || scr_b;*/
