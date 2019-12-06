@@ -21,12 +21,9 @@ begin : reg_init
 end
 endgenerate
 
-always @(*)                   // start read logic
-begin
-      rdata0 = x[raddr0];
-      rdata1 = x[raddr1];
-end
-
+     assign rdata0 = x[raddr0];				// start read logic
+     assign rdata1 = x[raddr1];
+	 
 always @(posedge clk)         // start write logic
 begin
     if (we & (wdata != 0))
@@ -34,42 +31,10 @@ begin
         x[waddr] = wdata;
     end
 /*--------------выводим содержимое регистров в hex--------*/
-    $strobe("CPUv1:
-	x0: %h
-	x4: %h
-	x8: %h
-	x12: %h\n
-		CPUv1:
-		x1: %h
-		x5: %h
-		x9: %h
-		x13: %h\n
-			CPUv1:
-			x2:
-			%h
-			x6: %h
-			x10: %h
-			x14: %h\n
-				CPUv1:
-				x3: %h
-				x7: %h
-				x11: %h
-				x15: %h",
-	32'b0,
-	x[4],
-	x[8],
-	x[12],
-	x[1],
-		x[5],
-		x[9],
-		x[13],
-		x[2],
-		x[6],
-			x[10],
-			x[14],
-			x[3],
-			x[7],
-			x[11],
-			x[15]);
+    $strobe("CPUv1:x0: %h x4: %h x8: %h x12: %h\nCPUv1:x1: %h x5: %h x9: %h x13: %h\nCPUv1:x2: %h x6: %h x10: %h x14:%h\nCPUv1:x3: %h x7: %h x11: %h x15: %h",
+			 
+			 32'b0, x[4], x[8], x[12], x[1],
+			 x[5], x[9], x[13], x[2], x[6], x[10],
+			 x[14], x[3], x[7], x[11], x[15] );
 end
 endmodule

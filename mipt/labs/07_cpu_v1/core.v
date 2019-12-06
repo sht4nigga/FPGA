@@ -9,22 +9,22 @@ module core(
 reg [31:0]pc = 32'hFFFFFFFF;
 wire [31:0]pc_next = (pc == last_pc) ? pc : pc + 1;
 
-always @(posedge clk) begin
+always @(posedge clk)
+begin
     pc <= pc_next;
     $strobe("CPUv1: [%h] %h", pc, instr);
 end
 
-wire [31:0]instr = instr_data;
 assign instr_addr = pc_next;
 
-wire [4:0]rd = instr[11:7];				 		/* Problem 4: extract field 'rd' from instruction */
-wire [4:0]rs1 = instr[19:15];					/* Problem 4: extract field 'rs1' from instruction */
-wire [4:0]rs2 = instr[24:20];					/* Problem 4: extract field 'rs2' from instruction */
+wire [31:0]instr = instr_data;
+wire [4:0]rd = instr[11:7];				 		// Problem 4: extract field 'rd' from instruction 
+wire [4:0]rs1 = instr[19:15];					// Problem 4: extract field 'rs1' from instruction 
+wire [4:0]rs2 = instr[24:20];					// Problem 4: extract field 'rs2' from instruction 
 
 wire [31:0]rf_rdata0;
-wire [4:0]rf_raddr0 = rs1;
-
 wire [31:0]rf_rdata1;
+wire [4:0]rf_raddr0 = rs1;
 wire [4:0]rf_raddr1 = rs2;
 
 wire [31:0]rf_wdata = alu_result;
@@ -34,32 +34,36 @@ wire rf_we;
 wire [31:0]alu_result;
 wire [31:0]alu_b_src = imm32;
 wire [2:0]alu_op;
+
 alu alu(
-    .src_a(rf_rdata0), .src_b(alu_b_src),
-    .op(alu_op),
-    .res(alu_result)
+		.src_a(rf_rdata0),
+		.src_b(alu_b_src),
+		.res(alu_result),
+		.op(alu_op)
 );
 
 reg_file rf(
-    .clk(clk),
-    .raddr0(rf_raddr0), .rdata0(rf_rdata0),
-    .raddr1(rf_raddr1), .rdata1(rf_rdata1),
-    .waddr(rf_waddr), .wdata(rf_wdata), .we(rf_we)
+		.clk(clk),
+		.we(rf_we),
+		.raddr0(rf_raddr0),
+		.rdata0(rf_rdata0),
+		.raddr1(rf_raddr1),
+		.rdata1(rf_rdata1),
+		.waddr(rf_waddr),
+		.wdata(rf_wdata)
 );
-
-wire [11:0]imm12;
-wire [31:0]imm32;
 
 /*
 * Problem 4:
 * Write sign extension logic for imm12 and imm32.
 */
+wire [11:0]imm12;
+wire [31:0]imm32 = {{20{imm12[11]}}, imm12};
 
 control control(
-    .instr(instr),
-    .imm12(imm12),
-    .rf_we(rf_we),
-    .alu_op(alu_op)
+		.instr(instr),
+		.imm12(imm12),
+		.rf_we(rf_we),
+		.alu_op(alu_op)
 );
-
 endmodule
