@@ -17,9 +17,9 @@ end
 wire [31:0]instr = instr_data;
 assign instr_addr = pc_next;
 
-wire [4:0]rd = /* Problem 4: extract field 'rd' from instruction */
-wire [4:0]rs1 = /* Problem 4: extract field 'rs1' from instruction */
-wire [4:0]rs2 = /* Problem 4: extract field 'rs2' from instruction */
+wire [4:0]rd = instr[11:7];				 /* Problem 4: extract field 'rd' from instruction */
+wire [4:0]rs1 = instr[19:15];				/* Problem 4: extract field 'rs1' from instruction */
+wire [4:0]rs2 = instr[24:20];					/* Problem 4: extract field 'rs2' from instruction */
 
 wire [31:0]rf_rdata0;
 wire [4:0]rf_raddr0 = rs1;

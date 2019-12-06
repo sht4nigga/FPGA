@@ -10,46 +10,47 @@ module reg_file(
     output [31:0]rdata1  // Read data #1
 );
 
-reg [31:0]x[31:0]; /* Array of 32-bit registers x0-x31 */
+reg [31:0]x[31:0];                      /* Array of 32-bit registers x0-x31 */
 
 genvar i;
 generate
 for (i = 0; i < 32; i = i + 1)
 begin : reg_init
     initial
-        x[i] = 32'b0; /* Set initial value of x[i] to ZERO */
+    x[i] = 32'b0;                       /* Set initial value of x[i] to ZERO */
 end
 endgenerate
 
-/*
-* Problem 2:
-* Describe read logic here.
-* Don't forget about x0 register.
-*/
+always @(*)                   // start read logic
+begin
+      rdata0 = x[raddr0];
+      rdata1 = x[raddr1];
+end
 
-always @(posedge clk) begin
-    /*
-    * Problem 2:
-    * Describe write logic here.
-    */
-	/*выводим содержимое регистров в hex*/
-    $strobe("CPUv1:					
-	x0: %h 
-	x4: %h  
-	x8: %h 
+always @(posedge clk)         // start write logic
+begin
+    if (we & (wdata != 0))
+    begin
+        x[waddr] = wdata;
+    end
+/*--------------выводим содержимое регистров в hex--------*/
+    $strobe("CPUv1:
+	x0: %h
+	x4: %h
+	x8: %h
 	x12: %h\n
-		CPUv1: 
-		x1: %h 
+		CPUv1:
+		x1: %h
 		x5: %h
 		x9: %h
 		x13: %h\n
-			CPUv1: 
-			x2: 
-			%h 
-			x6: %h 
-			x10: %h 
+			CPUv1:
+			x2:
+			%h
+			x6: %h
+			x10: %h
 			x14: %h\n
-				CPUv1: 
+				CPUv1:
 				x3: %h
 				x7: %h
 				x11: %h
@@ -72,5 +73,3 @@ always @(posedge clk) begin
 			x[15]);
 end
 endmodule
-
-

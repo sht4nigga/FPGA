@@ -6,19 +6,20 @@ module control(
     output reg [2:0]alu_op
 );
 
-wire [6:0]opcode = /* Problem 3: extract field 'opcode' from instruction. */
-wire [2:0]funct3 = /* Problem 3: extract field 'funct3' from instruction. */
+wire [6:0]opcode = instr[6:0];        /* Problem 3: extract field 'opcode' from instruction. */
+wire [2:0]funct3 = instr[14:12];      /* Problem 3: extract field 'funct3' from instruction. */
 
-always @(*) begin
+always @(*) 
+begin
     rf_we = 1'b0;
     alu_op = 3'b0;
     imm12 = 12'b0;
 
     casez ({funct3, opcode})
-        10'b000_0010011: 
-		begin // ADDI
+        10'b000_0010011:
+		begin 							// ADDI
             rf_we = 1'b1;
-            alu_op = 3'b1;
+            alu_op = 3'b001;
             imm12 = instr[31:20];
         end
         default: ;
