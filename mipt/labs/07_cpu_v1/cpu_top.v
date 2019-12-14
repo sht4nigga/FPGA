@@ -10,9 +10,10 @@ rom rom(
 	.q(instr_data));
 
 core core(
-    .clk(clk),
-	.instr_data(instr_data), .last_pc(32'h7),
-    .instr_addr(instr_addr)
+    	.clk(clk),
+	.instr_data(instr_data),
+	.last_pc(32'h7),
+    	.instr_addr(instr_addr)
 );
 
 endmodule
