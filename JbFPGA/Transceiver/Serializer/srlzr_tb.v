@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module DeMultiplexer_tb();
+module serializer_PISO_tb();
 
 
 		reg [1:0] inA,		     // input line
