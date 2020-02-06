@@ -7,15 +7,17 @@ module serializer_PISO #( parameter DATA_WIDTH = 8)
     input clk,
 	input rst,
 	input [DATA_WIDTH -1:0] data_in,								// 8-bit input data
-	input shift,													// permits the shift
 	input LOAD,													// then load the data in to the triggers
-
+    
     output srl_out												// serial output data
 	
 );
 
 assign srl_out = BUFF[0];											// define the BUFF contents to the serial out
 reg [DATA_WIDTH -1:0] BUFF;											// temporary local data storage
+reg ready;
+reg shift;													// permits the shift
+reg TX_active;
 integer i;																// integer vareable for counting the steps quantity of data_width
 
 always @(posedge clk)
@@ -25,7 +27,8 @@ begin
 	begin
 		BUFF<= 0;									// Resetting the temporary data to ZERO	
 		ready<= 0;									// Resetting signals to ZERO	
-		TX_active<= 0;								
+		TX_active <= 0;
+		shift<= 0;								
 	end
 	
 	else
@@ -57,7 +60,7 @@ shows, the whole "data_in" was counted and ready to be uploaded to the Buff */
 		begin
 			ready <= 1'b1;
 			shift <= 1'b1;
-			data_in <= BUFF;
+			data_in[DATA_WIDTH] <= BUFF;
 		end
 	
 end
@@ -75,7 +78,7 @@ begin
 	if (shift == 1'b1)
 		begin
 			for (q=0; q<=DATA_WIDTH; q=q+1)				
-			if((data_in[i] | LOAD) <= 0)			// "LOAD" & "d_i" goes through the "AND" gate, so we have a ZERO(LOAD=0)
+			if((data_in[q] | LOAD) <= 0)			// "LOAD" & "d_i" goes through the "AND" gate, so we have a ZERO(LOAD=0)
 			    begin
 			        if ((shift & data_in[DATA_WIDTH]))			// "shift" & "d_i" goes through the "AND" gate,
 			        begin
@@ -98,9 +101,12 @@ begin
 
 	if(LOAD == 1'b1)
 		begin
-			for(k=0, k<=DATA_WIDTH, k=k+1)
-			if( data_in[i] | LOAD) <= 1;
-			( data_in[i] | shift <= 0;
+			for(k=0; k<=DATA_WIDTH; k=k+1)
+			if(( data_in[k] | LOAD) <= 1)
+			begin
+			 ( data_in[k] | shift) <= 0;
+			 
+			end
 		end		
 	
 	else
