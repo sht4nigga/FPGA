@@ -5,13 +5,14 @@ module serializer_PISO_tb #(parameter DATA_WIDTH_Tb = 8);
 
         reg [1:0] tb_clk;
         reg [1:0] tb_rst;
-		reg [1:0] shift;                           // shifting signal
-		reg [1:0] LOAD;		                     // loading signal
+		//reg [1:0] BUFF_tb;
 
 		reg [1:0] srl_out;	                       // output line	
 		reg [DATA_WIDTH_Tb-1:0] data_in_Tb;		// output line
-		
 
+        wire shift_tb;                           // shifting signal
+        wire ready_tb;		
+        wire LOAD_tb;		                     // loading signal
 //Setting the tb_clk signal____________________________________________________________________
 always 
 begin
@@ -45,8 +46,11 @@ end
 serializer_PISO serializer_PISO_tb                    // Connecting ports
 (
     .clk(tb_clk),
-    .rst(tb_rst)  
-    //.C(C),
-    //.S(S)
+    .rst(tb_rst),  
+    //.BUFF(BUFF_tb),
+    .ready(ready_tb),
+    .LOAD(LOAD_tb),
+    //.TX_active(TX_active_tb),
+    .shift(shift_tb)
 );
 endmodule
