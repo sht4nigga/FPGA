@@ -15,8 +15,8 @@ module serializer_PISO_tb #(parameter DATA_WIDTH_Tb = 8);
 //Setting the tb_clk signal____________________________________________________________________
 always 
 begin
- // S <= 1'b0;
-  //#(S / 2);        // Zero level duration of clk period
+  tb_clk <= 1'b0;
+  #(CLK_PERIOD / 2);               // Zero level duration of clk period
   tb_clk <= 1'b1;
   #(CLK_PERIOD / 2);        // HIGH level duration of clk period
 end
@@ -29,7 +29,7 @@ begin
 	tb_rst <= 1'b1;              // ONE level duration of Reset signal
 	#30;
 	tb_rst <= 0;              // ZERO level duration of Reset signal
-	#200;
+	#10;
     
 	#2000;
 	$finish;
@@ -41,13 +41,12 @@ if (tb_rst == 1'b1);               // Synchronous Reset
 end
 //____________________________________________________________________
 
-/*wire B;
-wire C;
-DeMultiplexer dut ()                   // Connecting ports
+
+serializer_PISO serializer_PISO_tb                    // Connecting ports
 (
-    .A(A),
-    .B(B),  
-    .C(C),
-    .S(S)
-);*/
+    .clk(tb_clk),
+    .rst(tb_rst)  
+    //.C(C),
+    //.S(S)
+);
 endmodule

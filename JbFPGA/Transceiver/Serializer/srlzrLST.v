@@ -6,7 +6,7 @@ module serializer_PISO #( parameter DATA_WIDTH = 8)
 (
     input clk,
 	input rst,
-	input [DATA_WIDTH -1:0] data_in,								// 8-bit input data
+	//input [DATA_WIDTH -1:0] data_in,								// 8-bit input data
 	input LOAD,													// then load the data in to the triggers
     
     output srl_out												// serial output data
@@ -18,7 +18,10 @@ reg [DATA_WIDTH -1:0] BUFF;											// temporary local data storage
 reg ready;
 reg shift;													// permits the shift
 reg TX_active;
+reg [DATA_WIDTH -1:0] data_in;
 integer i;																// integer vareable for counting the steps quantity of data_width
+integer q;
+integer k;
 
 always @(posedge clk)
 begin
@@ -70,7 +73,7 @@ shift = 1
 LOAD = 0
 */
 
-integer q;							// integer vareable for counting the quantities steps of data_width
+//integer q;							// integer vareable for counting the quantities steps of data_width
 
 always @(posedge clk)
 begin
@@ -94,22 +97,19 @@ begin
 			
 end	
 
-integer k;
+//integer k;
 
 always@(posedge clk)
 begin
 
 	if(LOAD == 1'b1)
+	begin
+		for(k=0; k<=DATA_WIDTH; k=k+1)
+		if(( data_in[k] | LOAD) <= 1)
 		begin
-			for(k=0; k<=DATA_WIDTH; k=k+1)
-			if(( data_in[k] | LOAD) <= 1)
-			begin
-			 ( data_in[k] | shift) <= 0;
-			 
-			end
-		end		
-	
-	else
+		    TX_active <= 1'b1;
+		end
+	end		
 	
 end		
 endmodule
