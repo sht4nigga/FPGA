@@ -3,8 +3,8 @@ module serializer_PISO_tb #(parameter DATA_WIDTH_Tb = 8);
 
         localparam CLK_PERIOD = 10;
 
-        reg [1:0] tb_clk;
-        reg [1:0] tb_rst;
+        reg tb_clk;
+        reg tb_rst;
 		//reg [1:0] BUFF_tb;
 
 		reg [1:0] srl_out;	                       // output line	
@@ -12,7 +12,7 @@ module serializer_PISO_tb #(parameter DATA_WIDTH_Tb = 8);
 
         wire shift_tb;                           // shifting signal
         wire ready_tb;		
-        wire LOAD_tb;		                     // loading signal
+        reg LOAD_tb;		                     // loading signal
 //Setting the tb_clk signal____________________________________________________________________
 always 
 begin
@@ -39,18 +39,22 @@ end
 always @(posedge tb_clk) 
 begin
 if (tb_rst == 1'b1);               // Synchronous Reset
+begin
+LOAD_tb<= 1'b1;
+#50;
+LOAD_tb<= 1'b0;
+#50;
 end
-//____________________________________________________________________
-
+end
 
 serializer_PISO serializer_PISO_tb                    // Connecting ports
 (
     .clk(tb_clk),
     .rst(tb_rst),  
     //.BUFF(BUFF_tb),
-    .ready(ready_tb),
-    .LOAD(LOAD_tb),
+    //.ready(ready_tb),
+    .LOAD(LOAD_tb)
     //.TX_active(TX_active_tb),
-    .shift(shift_tb)
+    //.shift(shift_tb)
 );
 endmodule
