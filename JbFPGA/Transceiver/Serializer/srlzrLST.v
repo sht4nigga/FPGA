@@ -2,102 +2,77 @@ module serializer_PISO #( parameter DATA_WIDTH = 8)
 (
     input clk,
 	input rst,
-	//input ready,
-	//input [DATA_WIDTH -1:0] data_in,								// 8-bit input data
-	input wire LOAD,													// then load the data in to the triggers
-    output srl_out												        // serial output data
+	input wire ready,
+	//input wire[DATA_WIDTH -1:0] data_in,					// 8-bit input data
+	input wire LOAD,									// allow load the data in to the triggers
+	
+    output srl_out									    // serial output data
 	
 );
-											// define the BUFF contents to the serial out
-reg [DATA_WIDTH -1:0] BUFF;
-assign srl_out = BUFF[0];											// temporary local data storage												// permits the shift
+
+reg [DATA_WIDTH -1:0] BUFF;                             // temporary local data storage		
 reg [DATA_WIDTH -1:0] data_in;
-reg TX_active;
-reg shift;										// permits the shift
-integer i, q, k;								// integer vareable for counting the steps quantity of data_width
+reg TX_act;                                             // shows the current transfer
+reg iload;
+reg iready;                                             // temporary vatriable for connecting to the LOAD variable
+reg shift;										        // permits the data shift
+reg d_valid;                                            // data valid
+integer i, q, k;								        // integer vareables for counting the steps quantity of data_width
+
+assign LOAD = iload;                                    // varible, which allowa us to load the inpit data in to the SERIALIZER
+assign ready = iready;                                  // temporary variable "iready" for ready
+assign srl_out = BUFF[0];								// define the BUFF contents to the serial out
+
 
 always @(posedge clk)
 begin
-
 	if (rst)
 	begin
-		BUFF<= 0;									// Resetting the temporary data to ZERO	
-		//ready<= 0;									// Resetting signals to ZERO	
-		TX_active <= 0;
-		shift<= 0;								
+	    //shift<= 0;								    // Resetting the shifting signal to ZERO
+		//iload<= 0;                                    // Resetting the temporary load variable to ZERO
+		BUFF<= 0;									    // Resetting the temporary data to ZERO		
+		TX_act<= 0;                                     // Resetting the transer signal to ZERO
+		iready<= 0;                                     // Resetting "the data ready to load" variable
+		d_valid<= 0;                                    // Resetting data valid
 	end
 	
 	else
-	if (LOAD)
+	if (ready == 1)                                       
     begin
-		BUFF<= data_in;							// loading "data_in" to the 8-bit register
+		if(LOAD == 1)                                   // After  we got (ready = 1), whaiting for (LOAD = 1)
+		begin
+		  BUFF<= data_in;		                        // to load the data inside the BUFF
+		end
+		
+		else
+		if(LOAD == 0)
+		begin
+		
+		end
 	end
 			
 	else
-	if (LOAD == 1'b1)								//data loading mode(to the registers)
+	if (ready == 0)								        //data loading mode(to the registers)
 	begin
 		for (i=0; i <= DATA_WIDTH; i=i+1)				// run all the numbers(inputs) of the data_width regs
-		if((data_in[i] | shift) <= 0)				// "d_i" & "shift" goes through the "OR" gate, so we have a ZERO(shift=0)
+		if((data_in[i] | shift) <= 0)				    // "d_i" & "shift" goes through the "OR" gate, so we have a ZERO(shift=0)
         begin
-            if (LOAD & data_in[DATA_WIDTH])            // "LOAD" & "d_i" goes through the "AND" gate(bitwise)
+            if (LOAD & data_in[DATA_WIDTH])             // "LOAD" & "d_i" goes through the "AND" gate(bitwise)
             begin					
                 //ready <= 1'b1;
             end
-        end											// so we have a HIGH output(LOAD=1)
+        end											    // so we have a HIGH output(LOAD=1)
     end		
-/*Waiting mode
-shows, the whole "data_in" was counted and ready to be uploaded to the Buff */
-	else
-	if (((data_in|LOAD)==1'b1) && data_in[DATA_WIDTH])
-	begin
-        //ready <= 1'b1;
-        shift <= 1'b1;
-        data_in[DATA_WIDTH] <= BUFF;
-	end	
+end
+/*If TX_act is HIGH, thus we are tranfering
+the BUFF temporary data in to the "srl_out"*/
+/*
+
+if (TX_act == true)
+begin
+BUFF <= srl_out;
 end
 
-/*starting the shift mode
-shift = 1
-LOAD = 0
 */
 
-//integer q;							// integer vareable for counting the quantities steps of data_width
-
-always @(posedge clk)
-begin
-    if (shift == 1'b1)
-	begin
-	   for (q=0; q<=DATA_WIDTH; q=q+1)				
-	   if((data_in[q] | LOAD) <= 0)			// "LOAD" & "d_i" goes through the "AND" gate, so we have a ZERO(LOAD=0)
-	   begin
-	       if ((shift & data_in[DATA_WIDTH]))			// "shift" & "d_i" goes through the "AND" gate,
-	       begin 
-			shift <= 1'b1;
-		   end
-	   end
-	end											// so we have a HIGH output(shift=1)
-		
-	else
-	begin
-		data_in <= BUFF;							// sent input data to the BUFF(temprorary data storage)
-	end			
-end	
-
-//integer k;
-always@(posedge clk)
-begin
-    if(LOAD == 1'b1)
-    begin
-        for(k=0; k<=DATA_WIDTH; k=k+1)
-        if(( data_in[k] | LOAD) <= 1)
-        begin
-            TX_active <= 1'b1;
-        end
-    end	
-
-	else 
-	begin 
-	
-	end 
-end		
 endmodule

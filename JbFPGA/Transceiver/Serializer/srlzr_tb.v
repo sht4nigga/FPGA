@@ -5,14 +5,10 @@ module serializer_PISO_tb #(parameter DATA_WIDTH_Tb = 8);
 
         reg tb_clk;
         reg tb_rst;
-		//reg [1:0] BUFF_tb;
-
-		reg [1:0] srl_out;	                       // output line	
-		reg [DATA_WIDTH_Tb-1:0] data_in_Tb;		// output line
-
+        reg LOAD_tb;		                     // loading signal
+        
         wire shift_tb;                           // shifting signal
         wire ready_tb;		
-        reg LOAD_tb;		                     // loading signal
 //Setting the tb_clk signal____________________________________________________________________
 always 
 begin
