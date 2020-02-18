@@ -8,8 +8,8 @@ module piso4_struc #(parameter DATA_WIDTH = 5)
 (
     input rst_n, 
 	input clk,
-	input wire load,                             // Input signals	
-	input [4:1] x,                               // Input parallel data
+	input wire load,                             **// Input signals	
+	input [4:1] x,                               **// Input parallel data**
 	output [4:1] y,                              // Triggers outputs, wich goes to the next trigger
     	output z                                     // Serial output   
 );
