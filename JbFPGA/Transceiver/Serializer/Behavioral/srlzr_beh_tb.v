@@ -19,14 +19,17 @@ initial
 
 initial
 begin
-    #0 rst_n = 1'b0; load = 1'b0; x  = 4'b0000;
+    #0 rst_n = 1'b0;
+       load = 1'b0;
+       x  = 4'b0000;
+       
     #3 rst_n = 1'b1;
     
     #2 x = 4'b1111;
     #3 load = 1'b1;
     #7 load = 1'b0;
     
-    #100 $stop;
+    #120 $stop;
 end
 
 piso4_struc inst1 (
