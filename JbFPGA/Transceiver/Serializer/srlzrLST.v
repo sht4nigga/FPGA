@@ -3,7 +3,7 @@ module serializer_PISO #( parameter DATA_WIDTH = 8)
     input clk,
 	input rst,
 	input wire ready,
-	//input wire[DATA_WIDTH -1:0] data_in,					// 8-bit input data
+	//input wire[DATA_WIDTH -1:0] data_in,				// 8-bit input data
 	input wire LOAD,									// allow load the data in to the triggers
 	
     output srl_out									    // serial output data
@@ -67,12 +67,10 @@ end
 /*If TX_act is HIGH, thus we are tranfering
 the BUFF temporary data in to the "srl_out"*/
 /*
-
 if (TX_act == true)
 begin
 BUFF <= srl_out;
 end
-
 */
 
 endmodule
