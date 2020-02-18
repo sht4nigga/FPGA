@@ -1,7 +1,7 @@
 Это сериалайзер - преобразователь параллельного кода в последовательный, на основе сдвига регистра
 с параллельным входом\последовательным выходом  **(PISO = parallel-input/serial-output)**
 
-Закончил на том, что написал поведенческое оаписание serializer  со следующим кодом:
+Закончил на том, что написал поведенческое описание serializer  со следующим кодом:
 
 ```html
 module piso4_struc #(parameter DATA_WIDTH = 5) 
@@ -35,6 +35,9 @@ endmodule
 ![ScreenShot](https://raw.githubusercontent.com/sht4nigga/FPGA/Assign_Reg/JbFPGA/Transceiver/Serializer/Behavioral/Behavioral%20srlzr.jpg)  
 **Рисунок 1**
 
-Если же делать с синхронным сбросом, тосдвига не происходит с текущим кодом:  
+  
+Если же делать с синхронным сбросом, то сдвига не происходит с текущим кодом(рис.2):
+
 ![ScreenShot](https://raw.githubusercontent.com/sht4nigga/FPGA/Assign_Reg/JbFPGA/Transceiver/Serializer/Behavioral/Behavioral%20srlzr2.jpg)  
+**Рисунок 2**
 
