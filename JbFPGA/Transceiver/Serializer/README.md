@@ -14,5 +14,7 @@ https://www.youtube.com/watch?v=7LmBcGiiYwk
 
 18.02.2020 13.48
 
-Закончил на том, что переменные отображаются на диаргамме без неопределенных состояний. LOAD работает правильно.
+Закончил на том, что переменные отображаются на диаргамме без неопределенных состояний. LOAD работает не верно:
+
+не меняется при изменении сигнала reset
 ![ScreenShot](https://raw.githubusercontent.com/sht4nigga/FPGA/Assign_Reg/JbFPGA/Transceiver/Serializer/work%20bitch.jpg)
