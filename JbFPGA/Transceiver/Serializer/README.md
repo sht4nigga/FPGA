@@ -12,7 +12,7 @@ https://www.youtube.com/watch?v=7LmBcGiiYwk
 Не получается сбрасывать сигналы shift, load и srl_out, при написании testBench
 ![ScreenShot](https://github.com/sht4nigga/FPGA/blob/Assign_Reg/JbFPGA/Transceiver/Serializer/diag.jpg)
 
-07.02.2020 14.58
+18.02.2020 13.48
 
 Закончил на том, что переменные отображаются на диаргамме без неопределенных состояний. LOAD работает правильно.
 ![ScreenShot](https://raw.githubusercontent.com/sht4nigga/FPGA/Assign_Reg/JbFPGA/Transceiver/Serializer/work%20bitch.jpg)
