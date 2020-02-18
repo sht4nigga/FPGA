@@ -13,8 +13,8 @@ module piso4_struc #(parameter DATA_WIDTH = 5)
 	output [4:1] y,                              // Triggers outputs, wich goes to the next trigger
     	output z                                     // Serial output   
 );
-reg [4:1] y;
-assign z= y[4];                                      // Put the last trigger data to serial output
+	reg [4:1] y;
+	assign z= y[4];                              // Put the last trigger data to serial output
 
 always@(negedge rst_n or posedge clk)
 begin
