@@ -15,4 +15,4 @@ https://www.youtube.com/watch?v=7LmBcGiiYwk
 07.02.2020 14.58
 
 Закончил на том, что переменные отображаются на диаргамме без неопределенных состояний. LOAD работает правильно.
-![ScreenShot](https://raw.githubusercontent.com/sht4nigga/FPGA/Assign_Reg/JbFPGA/Transceiver/Serializer/work%20bitch.jpg)
+![ScreenShot](https://raw.githubusercontent.com/sht4nigga/FPGA/Assign_Reg/JbFPGA/Transceiver/Serializer/Functional/work%20bitch.jpg)
