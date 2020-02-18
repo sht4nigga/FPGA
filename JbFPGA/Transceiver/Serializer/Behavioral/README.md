@@ -33,7 +33,7 @@ endmodule
 Как видно из кода, тут асинхронный сброс(рис.1).
 
 ![ScreenShot](https://raw.githubusercontent.com/sht4nigga/FPGA/Assign_Reg/JbFPGA/Transceiver/Serializer/Behavioral/Behavioral%20srlzr.jpg)  
-**Рисунок 1
+**Рисунок 1**
 
 Если же делать с синхронным сбросом, тосдвига не происходит с текущим кодом:  
 ![ScreenShot](https://raw.githubusercontent.com/sht4nigga/FPGA/Assign_Reg/JbFPGA/Transceiver/Serializer/Behavioral/Behavioral%20srlzr2.jpg)  
