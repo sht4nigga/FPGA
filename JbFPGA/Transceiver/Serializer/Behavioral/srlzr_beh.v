@@ -27,6 +27,11 @@ begin
         begin
             y[i+1]<= ((load && x[i+1]) || (~load && i));
         end
+<<<<<<< HEAD
 	end     
+=======
+    end
+       
+>>>>>>> Assign_Reg
 end
 endmodule
