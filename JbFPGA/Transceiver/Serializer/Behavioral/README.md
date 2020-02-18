@@ -29,7 +29,8 @@ begin
 end
 endmodule
 
-```
+```  
+Как видно из кода, тут асинхронный сброс.
 
 ![ScreenShot](https://raw.githubusercontent.com/sht4nigga/FPGA/Assign_Reg/JbFPGA/Transceiver/Serializer/Behavioral/Behavioral%20srlzr.jpg)  
 
