@@ -17,4 +17,4 @@ https://www.youtube.com/watch?v=7LmBcGiiYwk
 Закончил на том, что переменные отображаются на диаргамме без неопределенных состояний. LOAD работает не верно:
 
 не меняется при изменении сигнала reset
-![ScreenShot](https://raw.githubusercontent.com/sht4nigga/FPGA/Assign_Reg/JbFPGA/Transceiver/Serializer/work%20bitch.jpg)
+![ScreenShot](https://raw.githubusercontent.com/sht4nigga/FPGA/Assign_Reg/JbFPGA/Transceiver/Serializer/Behavioral/Behavioral%20srlzr.jpg)
