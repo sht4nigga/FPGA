@@ -28,11 +28,8 @@ begin
         begin
             y[i+1]<= ((load && x[i+1]) || (~load && i));
         end
-	end
-     /*y[1]<= ((load && x[1]) || (~load && 1'b0));
-     y[2]<= ((load && x[2]) || (~load && y[1])); 
-     y[3]<= ((load && x[3]) || (~load && y[2]));
-     y[4]<= ((load && x[4]) || (~load && y[3]));*/      
+    end
+       
 end
     
 
