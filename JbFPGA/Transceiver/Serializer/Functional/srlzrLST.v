@@ -3,20 +3,20 @@ module piso #(parameter DATA_WIDTH = 9)
 (
     input rst_n, 
 	input clk,
-	input wire load,                             	 // Input permission of loading data	
+	input wire load,                             	// Input signals	
 	input [DATA_WIDTH-1:1] x,                       // Input parallel data
 	
 	output [DATA_WIDTH-1:1] y,                      // Triggers outputs, wich goes to the next trigger
     output z                                        // Serial output
 );   
     reg [DATA_WIDTH-1:1] y;
-    assign z= y[DATA_WIDTH-1];                      // Put the last trigger output data to serial output
+    assign z= y[DATA_WIDTH-1];                      // Put the last trigger data to serial output
     integer i;                                      // Counting variable
 
 always@(posedge clk)
 begin
-    if (rst_n)
-    y<= {DATA_WIDTH{1'b0}};                          // Binary array of parallel inputs (4'b0000)
+    if (rst_n == 1'b1)
+    y<= {DATA_WIDTH{1'b0}};                         // Binary array of parallel inputs
     
     else
     if(load)
