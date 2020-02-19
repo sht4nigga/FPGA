@@ -71,7 +71,12 @@ endmodule
 ```
 
 ![ScreenShot](https://raw.githubusercontent.com/sht4nigga/FPGA/Assign_Reg/JbFPGA/Transceiver/Serializer/Behavioral/Behavioral%20srlzr2.jpg)  
-**Рисунок 2**  
+**Рисунок 2**
+  
+  
+  
+
+
   
   
     
