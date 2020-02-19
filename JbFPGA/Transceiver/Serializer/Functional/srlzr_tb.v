@@ -1,6 +1,15 @@
 `timescale 1ns / 1ps
 module piso_tb #(parameter DATA_WIDTH = 9);
+localparam CLK_PERIOD = 10;
 
+always 
+begin
+        clk <= 1'b0;
+        #(CLK_PERIOD / 2);
+        clk <= 1'b1;
+        #(CLK_PERIOD / 2);
+end
+//--------------------------------------------------------------------
         reg clk;
         reg rst_n;
         reg load;
@@ -8,13 +17,6 @@ module piso_tb #(parameter DATA_WIDTH = 9);
         
         wire [DATA_WIDTH-1:1] y;           // Triggers output data
         wire z;                            // Serial output
-   
-initial
-begin
-    clk = 1'b0;                            // Clk always LOW
-    forever
-    #10clk= ~clk;                          // Clk pulses 
-end
 
 initial
     $monitor ("x= %b, y= %b, z= %b", x, y, z);
