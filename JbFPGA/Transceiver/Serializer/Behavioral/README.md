@@ -77,7 +77,10 @@ endmodule
 
 
 
-
+  
+  
+  
+  
 Проверил работу Reset и Load. Они работают корректно(рис.3)
 ![ScreenShot](https://raw.githubusercontent.com/sht4nigga/FPGA/Assign_Reg/JbFPGA/Transceiver/Serializer/Behavioral/ex3.jpg) 
 **Рисунок 3**
