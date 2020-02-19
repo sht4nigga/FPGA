@@ -74,13 +74,9 @@ endmodule
 **Рисунок 2**
 
 
-
-
-
-  
-  
-  
-  
-Проверил работу Reset и Load. Они работают корректно(рис.3)
+ 
+Проверил работу Reset и Load. Они работают корректно(рис.3)  
+Но, увидев мой tb, сказали, что:  
+"Он отстой"!
 ![ScreenShot](https://raw.githubusercontent.com/sht4nigga/FPGA/Assign_Reg/JbFPGA/Transceiver/Serializer/Behavioral/ex3.jpg) 
 **Рисунок 3**
