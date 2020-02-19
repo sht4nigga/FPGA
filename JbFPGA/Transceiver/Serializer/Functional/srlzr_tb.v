@@ -1,11 +1,3 @@
-`timescale 1ns / 1ps
-module serializer_PISO_tb #(parameter DATA_WIDTH_Tb = 8);
-
-        localparam CLK_PERIOD = 10;
-
-        reg tb_clk;
-        reg tb_rst;
-        reg LOAD_tb;		                     // loading signal
         `timescale 1ns / 1ps
 module serializer_PISO_tb #(parameter DATA_WIDTH_Tb = 8);
 
