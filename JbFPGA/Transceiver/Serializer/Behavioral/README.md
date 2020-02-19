@@ -77,6 +77,60 @@ endmodule
  
 Проверил работу Reset и Load. Они работают корректно(рис.3)  
 Но, увидев мой tb, сказали, что:  
-"Он отстой"!
+**"Он отстой"!**
+
 ![ScreenShot](https://raw.githubusercontent.com/sht4nigga/FPGA/Assign_Reg/JbFPGA/Transceiver/Serializer/Behavioral/ex3.jpg) 
 **Рисунок 3**
+
+
+test_bench код:  
+```html
+`timescale 1ns / 1ps
+module piso_tb #(parameter DATA_WIDTH = 9);
+
+        reg clk;
+        reg rst_n;
+        reg load;
+        reg [DATA_WIDTH-1:1] x;            // Input parallel data
+        
+        wire [DATA_WIDTH-1:1] y;           // Triggers output data
+        wire z;                            // Serial output
+   
+initial
+begin
+    clk = 1'b0;                            // Clk always LOW
+    forever
+    #10clk= ~clk;                          // Clk pulses 
+end
+
+initial
+    $monitor ("x= %b, y= %b, z= %b", x, y, z);
+
+initial
+begin
+    #0      rst_n = 1'b0;
+            load = 1'b1;
+            x  = {DATA_WIDTH{1'b0}};
+       
+    #3      rst_n = 1'b1;
+    
+    #2      x = {DATA_WIDTH{1'b1}};
+    #20     rst_n = 1'b0;
+    #40     load = 1'b0;
+    #50     rst_n = 1'b1;
+    #30     rst_n = 1'b0;
+    //#120 $stop; 
+end
+
+piso inst1 (
+
+    .rst_n(rst_n),
+    .clk(clk),
+    .load(load),
+    .x(x),
+    .y(y),
+    .z(z)
+);
+endmodule
+```
+
